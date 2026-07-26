@@ -1,12 +1,15 @@
 import re
 import pandas as pd
-from nltk.corpus import stopwords
 from Sastrawi.Stemmer.StemmerFactory import StemmerFactory
+from Sastrawi.StopWordRemover.StopWordRemoverFactory import StopWordRemoverFactory
 import streamlit as st
 
 factory = StemmerFactory()
 stemmer = factory.create_stemmer()
-stop_words = set(stopwords.words("indonesian"))
+
+# Menggunakan stopword bawaan Sastrawi agar tidak memerlukan download NLTK
+stop_factory = StopWordRemoverFactory()
+stop_words = set(stop_factory.get_stop_words())
 
 def case_folding(text):
     return str(text).lower()
